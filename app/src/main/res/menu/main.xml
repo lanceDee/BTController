@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ActionBar2="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_connect_item"
+        ActionBar2:showAsAction="ifRoom"
+        android:title="@string/menu_connect_item" />
+
+    <item android:id="@+id/menu_clear_item"
+        android:title="@string/menu_clear_item"/>
+    <item android:id="@+id/menu_setting_item"
+        android:title="@string/menu_setting_item" />
+</menu>
