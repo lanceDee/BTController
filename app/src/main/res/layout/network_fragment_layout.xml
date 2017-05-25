@@ -11,66 +11,66 @@
     tools:context="com.example.lance.btcontroller.SettingActivity">
 
     <TextView
-        android:id="@+id/text_setting"
+        android:id="@+id/network_text_tcp_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_server_setting"/>
     <EditText
-        android:id="@+id/edit_server_ip"
+        android:id="@+id/network_edit_server_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_setting"
+        android:layout_below="@id/network_text_tcp_setting"
         android:paddingTop="20dp"
         android:hint="@string/hint_ip"/>
     <EditText
-        android:id="@+id/edit_server_port"
+        android:id="@+id/network_edit_server_port"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_server_ip"
+        android:layout_below="@id/network_edit_server_ip"
         android:inputType="number"
         android:hint="@string/hint_port"/>
 
     <TextView
-        android:id="@+id/text_network"
+        android:id="@+id/network_text_local_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_network_setting"
-        android:layout_below="@id/edit_server_port"
+        android:layout_below="@id/network_edit_server_port"
         android:paddingTop="40dp"/>
     <EditText
-        android:id="@+id/edit_local_ip"
+        android:id="@+id/network_edit_local_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_network"
+        android:layout_below="@id/network_text_local_setting"
         android:paddingTop="20dp"
         android:hint="@string/hint_local_ip"/>
     <EditText
-        android:id="@+id/edit_netmask"
+        android:id="@+id/network_edit_netmask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_local_ip"
+        android:layout_below="@id/network_edit_local_ip"
         android:hint="@string/hint_local_netmask"/>
 
     <EditText
-        android:id="@+id/edit_gateway"
+        android:id="@+id/network_edit_gateway"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_netmask"
+        android:layout_below="@id/network_edit_netmask"
         android:hint="@string/hint_local_gateway"/>
     <LinearLayout
-        android:id="@+id/layout_button_container"
+        android:id="@+id/network_layout_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_gateway"
+        android:layout_below="@id/network_edit_gateway"
         android:paddingTop="20dp">
         <Button
-            android:id="@+id/button_edit_setting"
+            android:id="@+id/network_button_edit"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/button_edit_tcp"/>
         <Button
-            android:id="@+id/button_save_setting"
+            android:id="@+id/network_button_save"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
