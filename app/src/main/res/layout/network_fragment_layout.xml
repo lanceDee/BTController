@@ -8,60 +8,127 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.lance.btcontroller.SettingActivity">
+    tools:context="com.example.lance.btcontroller.NetworkFragment">
 
     <TextView
         android:id="@+id/network_text_tcp_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_server_setting"/>
-    <EditText
-        android:id="@+id/network_edit_server_ip"
+        android:text="@string/title_server_setting"
+        android:textSize="18dp"/>
+    <LinearLayout
+        android:id="@+id/container_server_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/network_text_tcp_setting"
-        android:paddingTop="20dp"
-        android:hint="@string/hint_ip"/>
-    <EditText
-        android:id="@+id/network_edit_server_port"
+        android:layout_below="@id/network_text_tcp_setting">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hint_ip"/>
+        <EditText
+            android:id="@+id/network_edit_server_ip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingTop="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container_server_port"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/network_edit_server_ip"
-        android:inputType="number"
-        android:hint="@string/hint_port"/>
+        android:layout_below="@id/container_server_ip">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hint_port"/>
+        <EditText
+            android:id="@+id/network_edit_server_port"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/blank"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/container_server_port"/>
+    <View
+        android:id="@+id/seperater"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333"
+        android:layout_below="@id/blank"/>
 
     <TextView
         android:id="@+id/network_text_local_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_network_setting"
-        android:layout_below="@id/network_edit_server_port"
-        android:paddingTop="40dp"/>
-    <EditText
-        android:id="@+id/network_edit_local_ip"
+        android:textSize="18dp"
+        android:layout_below="@id/seperater"
+        android:paddingTop="20dp"/>
+    <LinearLayout
+        android:id="@+id/container_local_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/network_text_local_setting"
-        android:paddingTop="20dp"
-        android:hint="@string/hint_local_ip"/>
-    <EditText
-        android:id="@+id/network_edit_netmask"
+        android:layout_below="@id/network_text_local_setting">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hint_local_ip"/>
+        <EditText
+            android:id="@+id/network_edit_local_ip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingTop="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container_netmask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/network_edit_local_ip"
-        android:hint="@string/hint_local_netmask"/>
+        android:layout_below="@id/container_local_ip">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hint_local_netmask"/>
+        <EditText
+            android:id="@+id/network_edit_netmask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="@string/hint_local_netmask"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container_local_gateway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_netmask">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hint_local_gateway"/>
+        <EditText
+            android:id="@+id/network_edit_gateway"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="@string/hint_local_gateway"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/network_edit_gateway"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/network_edit_netmask"
-        android:hint="@string/hint_local_gateway"/>
+
     <LinearLayout
         android:id="@+id/network_layout_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/network_edit_gateway"
+        android:layout_below="@id/container_local_gateway"
         android:paddingTop="20dp">
         <Button
             android:id="@+id/network_button_edit"

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,9 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MenuItem itemConnect;
 
     private View logLayout;
-    //private TextView textView;
+    private ImageView logImage;
+    private TextView logTextView;
+    public String logContent="";
     private View controllerLayout;
+    private ImageView controllerImage;
     private View networkLaytout;
+    private ImageView networkImage;
 
     private LogFragment logFragment;
     private NetworkFragment networkFragment;
@@ -63,12 +69,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView(){
         logLayout = findViewById(R.id.log_layout);
-       //textView = (TextView) findViewById(R.id.log_text_view);
+        logImage = (ImageView) findViewById(R.id.log_image);
+        //logTextView = (TextView) findViewById(R.id.log_text_view);
+        logFragment = new LogFragment();
 
         controllerLayout = findViewById(R.id.controller_layout);
+        controllerImage = (ImageView) findViewById(R.id.controller_image);
 
         networkLaytout = findViewById(R.id.network_layout);
-
+        networkImage = (ImageView) findViewById(R.id.network_image);
 
         logLayout.setOnClickListener(this);
 
@@ -89,37 +98,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.log_layout:
                 setTabDisplay(2);
                 break;
-            case R.id.controller_button_save:
-                sendCommand(Constants.CMD_SAVE_DATA);
-                break;
-            case R.id.controller_button_send:
-                sendCommand(Constants.CMD_SEND_DATA);
-                break;
-            case R.id.controller_button_stop:
-                sendCommand(Constants.CMD_STOP);
-                break;
             default:
                 break;
         }
     }
 
-
-
-
     private void setTabDisplay(int index){
+        clearSelection();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (index){
             case 0:
+                controllerImage.setImageResource(R.drawable.image_controller_selected);
                 if(controllerFragment == null)
                     controllerFragment = new ControllerFragment();
                 transaction.replace(R.id.fragment_layout, controllerFragment);
                 break;
             case 1:
+                networkImage.setImageResource(R.drawable.image_network_selected);
                 if(networkFragment == null)
                     networkFragment = new NetworkFragment();
                 transaction.replace(R.id.fragment_layout, networkFragment);
                 break;
             case 2:
+                logImage.setImageResource(R.drawable.image_log_selected);
                 if(logFragment == null)
                     logFragment = new LogFragment();
                 transaction.replace(R.id.fragment_layout, logFragment);
@@ -132,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.commit();
     }
 
+    private void clearSelection(){
+        controllerImage.setImageResource(R.drawable.image_controller_unselected);
+        networkImage.setImageResource(R.drawable.image_network_unselected);
+        logImage.setImageResource(R.drawable.image_log_unselected);
+    }
 
 
     public void setSubtitle(String subtitle){
@@ -171,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             mChatService.stop();
-            //textView.append("->bluetooth disconnected!\n");
+            logAppend("->bluetooth disconnected!\n");
             item.setTitle("连接");
         }
         return true;
@@ -182,9 +188,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mChatService.write(cmd.getBytes());
     }
 
-
-
-
+    public int getBluetoothState(){
+        return mChatService.getState();
+    }
 
     public void displayToast(String string){
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
@@ -194,14 +200,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what){
-                /*
+
                 case BluetoothChatService.MESSAGE_BT_READ:
                     byte[] buffer = (byte[]) msg.obj;
                     try {
                         String reply = new String(buffer, 0, msg.arg1);
                         String[] infoToDispaly = reply.split("\r\n");
                         for(byte i = 0; i<infoToDispaly.length; i++)
-                            textView.append("->"+infoToDispaly[i]+"\n");
+                            logAppend(currentDeviceName+": "+infoToDispaly[i]+"\n");
                         final ScrollView scrollView = (ScrollView) findViewById(R.id.log_scroll_view);
                         scrollView.post(new Runnable() {
                             @Override
@@ -216,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
                     break;
-                    */
+
                 case BluetoothChatService.MESSAGE_DEVICE_NAME:
                     itemConnect.setEnabled(true);
                     itemConnect.setTitle("断开");
@@ -246,6 +252,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
+    private void logAppend(String string){
+        logContent += string;
+        if(logFragment == null)
+            logFragment = new LogFragment();
+        logTextView =(TextView) findViewById(R.id.log_text_view);
+        if(logTextView != null)
+            logTextView.append(string);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
@@ -260,33 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(resultCode == Activity.RESULT_CANCELED)
                     itemConnect.setEnabled(true);
                 break;
-/*
-            case REQUEST_SET_NETWORK:
-                SharedPreferences pre = getSharedPreferences("netinfo", 0);
-                String netinfo = pre.getString("localIP", "")+"/"+pre.getString("netmask", "")+"/"+pre.getString("gateway", "");
-                //Log.e(TAG, "onActivityResult: netinfo "+netinfo);
-                sendCommand("netcfg/"+netinfo+"\r\n");
-                final ProgressDialog dia = new ProgressDialog(this);
-                dia.setTitle("正在为仪器配置网络");
-                dia.setMessage("请稍候...");
-                dia.setCancelable(false);
-                dia.show();
-                new Thread(){
-                    @Override
-                    public void run() {
-                        try {
-                            sleep(2000);
-                        }
-                        catch(InterruptedException e){
-                            Log.e(TAG, "run: delay failed");
-                        }
-                        finally {
-                            dia.dismiss();
-                        }
-                    }
-                }.start();
-                break;
-                */
+
         }
     }
 }

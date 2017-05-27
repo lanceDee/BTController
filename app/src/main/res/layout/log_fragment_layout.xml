@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:text="日志信息"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333"/>
     <ScrollView
         android:id="@+id/log_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <TextView
             android:id="@+id/log_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/log_button_clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_clear_item"/>
 </LinearLayout>

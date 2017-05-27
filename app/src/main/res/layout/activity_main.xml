@@ -13,10 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" >
     </FrameLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +23,7 @@
             android:id="@+id/controller_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/image_controller_unselected" />
 
                 <TextView
                     android:id="@+id/controller_text"
@@ -68,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/image_network_unselected" />
 
                 <TextView
                     android:id="@+id/network_text"
@@ -97,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/image_log_unselected" />
 
                 <TextView
                     android:id="@+id/log_text"

@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".ChooseDeviceActivity"
             android:label="选择设备"/>
+        <activity android:name=".SettingActivity"
+            android:label="服务器配置"/>
     </application>
 
 </manifest>

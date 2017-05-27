@@ -27,7 +27,7 @@ public class NetworkFragment extends Fragment implements View.OnClickListener{
     private Button butEditConf;
     private Button butSaveConf;
 
-    MainActivity mainActivity;
+    private MainActivity mainActivity;
 
     private static final String TAG = "NetworkFragment";
     @Nullable
@@ -41,7 +41,7 @@ public class NetworkFragment extends Fragment implements View.OnClickListener{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
-        initNetworkFragment();
+
         butEditConf = (Button) mainActivity.findViewById(R.id.network_button_edit);
         butSaveConf = (Button) mainActivity.findViewById(R.id.network_button_save);
         editServerIP = (EditText) mainActivity.findViewById(R.id.network_edit_server_ip);
@@ -51,6 +51,8 @@ public class NetworkFragment extends Fragment implements View.OnClickListener{
         editGateway = (EditText) mainActivity.findViewById(R.id.network_edit_gateway);
         butEditConf.setOnClickListener(this);
         butSaveConf.setOnClickListener(this);
+
+        initNetworkFragment();
     }
 
     private void initNetworkFragment(){
@@ -87,6 +89,10 @@ public class NetworkFragment extends Fragment implements View.OnClickListener{
         }
     }
     private void butEditConfClicked(){
+        if(mainActivity.getBluetoothState() != BluetoothChatService.STATE_CONNECTED){
+            mainActivity.displayToast("蓝牙未连接，无法更改配置");
+            return;
+        }
         butEditConf.setEnabled(false);
         butSaveConf.setEnabled(true);
         editServerIP.setEnabled(true);
