@@ -16,11 +16,20 @@
         android:layout_height="wrap_content"
         android:text="@string/title_server_setting"
         android:textSize="18dp"/>
+
+    <CheckBox
+        android:id="@+id/network_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_checkbox"
+        android:layout_below="@+id/network_text_tcp_setting"
+        android:layout_alignParentRight="true"/>
+
     <LinearLayout
         android:id="@+id/container_server_ip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/network_text_tcp_setting">
+        android:layout_below="@id/network_checkbox">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,11 +60,30 @@
             android:inputType="number" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/container_server_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_server_port">
+        <Button
+            android:id="@+id/network_button_start_server"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/button_start_server"/>
+        <Button
+            android:id="@+id/network_button_stop_server"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/button_stop_server"/>
+    </LinearLayout>
+
     <View
         android:id="@+id/blank"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_below="@id/container_server_port"/>
+        android:layout_below="@id/container_server_control"/>
     <View
         android:id="@+id/seperater"
         android:layout_width="match_parent"
@@ -129,7 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/container_local_gateway"
-        android:paddingTop="20dp">
+        android:paddingTop="10dp">
         <Button
             android:id="@+id/network_button_edit"
             android:layout_height="wrap_content"
@@ -143,5 +171,7 @@
             android:layout_weight="1"
             android:text="@string/button_save_tcp"/>
     </LinearLayout>
+
+
 
 </RelativeLayout>

@@ -16,13 +16,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">蓝牙控制器</string>
     <!--  MainActivity -->
-    <string name="menu_clear_item">清除显示</string>
+    
     <string name="menu_choose_item">选择设备</string>
     <string name="menu_connect_item">连接</string>
     <string name="menu_setting_item">网络信息配置</string>
-    <string name="button_save">存储</string>
     <string name="button_send">发送</string>
-    <string name="button_stop">停止</string>
     <string name="subtitle_connected">已连接</string>
     <string name="subtitle_disconnected">未连接</string>
 
@@ -31,14 +29,58 @@
     <string name="text_new_devices">可用设备</string>
     <string name="text_scan_button">扫描新设备</string>
 
-    <!-- SettingActivity -->
+    <!--ControllerFragment-->
+    <string name="info_for_checkbox">\t勾选“统一配置”后只能修改通道1的配置，其它通道将复制通道一的配置。</string>
+    <string name="button_start_carlibration">开始校准</string>
+    <string name="button_stop_carlibration">停止校准</string>
+    <string name="button_start_aquisition">开始采集</string>
+    <string name="button_stop_aquisition">停止采集</string>
+    <string-array name="channel_gain">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+        <item>16</item>
+        <item>32</item>
+        <item>64</item>
+    </string-array>
+    <string-array name="sampling_rate">
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>4000</item>
+    </string-array>
+    <string-array name="choose_carli_rate">
+        <item>0.48828125</item>
+        <item>0.9765625</item>
+        <item>1.953125</item>
+        <item>3.90625</item>
+        <item>7.8125</item>
+        <item>15.625</item>
+        <item>31.25</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+        <item>62.5</item>
+        <item>100</item>
+        <item>125</item>
+        <item>250</item>
+    </string-array>
+    
+    <!-- NetworkFragment -->
     <string name="title_server_setting">TCP服务器配置</string>
+    <string name="text_checkbox">使用本机作为服务器</string>
     <string name="title_network_setting">仪器网络配置</string>
     <string name="hint_ip">服务器IP</string>
     <string name="hint_port">端口号</string>
+    <string name="button_start_server">开启服务器</string>
+    <string name="button_stop_server">关闭服务器</string>
     <string name="hint_local_ip">本机IP</string>
     <string name="hint_local_netmask">子网掩码</string>
     <string name="hint_local_gateway">默认网关</string>
     <string name="button_edit_tcp">修改</string>
     <string name="button_save_tcp">保存</string>
+    <!--LogFragment-->
+    <string name="menu_clear_item">清除显示</string>
 </resources>

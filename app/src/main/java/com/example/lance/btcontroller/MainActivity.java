@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         if(mChatService != null)
             mChatService.stop();
+        networkFragment.stopServer();
     }
 
     @Override
@@ -184,8 +185,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void sendCommand(String cmd){
-        if(mChatService != null)
+        if(mChatService != null && mChatService.getState() == BluetoothChatService.STATE_CONNECTED)
             mChatService.write(cmd.getBytes());
+        else
+            displayToast("蓝牙未连接");
     }
 
     public int getBluetoothState(){
@@ -196,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
 
-    private final Handler mHandler = new Handler(){
+    public final Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what){
@@ -248,11 +251,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String string = msg.getData().getString(BluetoothChatService.TOAST);
                     displayToast(string);
                     break;
+                case TCPServerService.MESSAGE_TOAST:
+                    string = msg.getData().getString(TCPServerService.TOAST);
+                    displayToast(string);
+                    logAppend("->"+string+"\n");
+                    break;
             }
         }
     };
 
-    private void logAppend(String string){
+    public void logAppend(String string){
         logContent += string;
         if(logFragment == null)
             logFragment = new LogFragment();
