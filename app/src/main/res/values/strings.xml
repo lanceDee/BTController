@@ -81,6 +81,8 @@
     <string name="hint_local_gateway">默认网关</string>
     <string name="button_edit_tcp">修改</string>
     <string name="button_save_tcp">保存</string>
+    <string name="button_start_get_data">开始获取数据</string>
+    <string name="button_stop_get_data">停止获取数据</string>
     <!--LogFragment-->
     <string name="menu_clear_item">清除显示</string>
 </resources>

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = "MainActivity";
     public static final int REQUEST_CONNECT_DEVICE = 1;
     public static final int REQUEST_SET_NETWORK = 2;
+    //public String filesize;
     private String currentDeviceName;
     private BluetoothChatService mChatService;
     private BluetoothAdapter mBluetoothAdapter;
@@ -209,6 +210,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         String reply = new String(buffer, 0, msg.arg1);
                         String[] infoToDispaly = reply.split("\r\n");
+                        //Log.e(TAG, "handleMessage: reply "+reply);
+                        //若返回的是文件大小
+                        if (reply.contains("filesize")){
+                            int firstIndex, lastIndex;
+                            firstIndex = reply.indexOf("filesize");
+                            lastIndex = reply.indexOf("\r\n", firstIndex);
+                            String filesize = reply.substring(firstIndex+8, lastIndex);
+                            Log.e(TAG, "handleMessage: bt_read: "+filesize);
+                            networkFragment.setFileSize(filesize);
+                            break;
+                        }
                         for(byte i = 0; i<infoToDispaly.length; i++)
                             logAppend(currentDeviceName+": "+infoToDispaly[i]+"\n");
                         final ScrollView scrollView = (ScrollView) findViewById(R.id.log_scroll_view);
@@ -242,9 +254,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             itemConnect.setEnabled(true);
                             itemConnect.setTitle("连接");
                             setSubtitle("未连接");
+                            if (networkFragment != null) {
+                                networkFragment.disableAllView();
+                                if (networkFragment.getRecieveState())
+                                    networkFragment.setViewEnabled(R.id.network_button_get_data, true);
+                            }
                             break;
                         case BluetoothChatService.STATE_CONNECTED:
                             setSubtitle("已连接："+ currentDeviceName);
+                            if (networkFragment != null) {
+                                networkFragment.setViewEnabled(R.id.network_checkbox, true);
+                                //networkFragment.setViewEnabled(R.id.network_button_start_server, true);
+                                networkFragment.setViewEnabled(R.id.network_button_get_data, true);
+                                networkFragment.setViewEnabled(R.id.network_button_edit, true);
+                                if (networkFragment.getCheckBoxState())
+                                    networkFragment.setViewEnabled(R.id.network_edit_server_port, true);
+                            }
                     }
                     break;
                 case BluetoothChatService.MESSAGE_TOAST:

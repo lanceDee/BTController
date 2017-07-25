@@ -64,6 +64,7 @@ public class TCPServerService {
         public void run() {
             try{
                 serverSocket = new ServerSocket(port);
+                Log.e(TAG, "run: serverthread started" );
                 isRunning = true;
                 while(true) {
                     s = serverSocket.accept();
@@ -91,6 +92,8 @@ public class TCPServerService {
         }
 
         public void cancel(){
+            if (s == null)
+                return;
             try{
                 s.close();
                 serverSocket.close();
