@@ -50,10 +50,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView controllerImage;
     private View networkLaytout;
     private ImageView networkImage;
+    private View dataLayout;
+    private ImageView dataImage;
 
     private LogFragment logFragment;
     private NetworkFragment networkFragment;
     private ControllerFragment controllerFragment;
+    private DataFragment dataFragment;
+    private NoneFileFragment noneFileFragment;
 
     private FragmentManager fragmentManager;
 
@@ -80,11 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         networkLaytout = findViewById(R.id.network_layout);
         networkImage = (ImageView) findViewById(R.id.network_image);
 
+        dataLayout = findViewById(R.id.data_layout);
+        dataImage = (ImageView) findViewById(R.id.data_image);
+
         logLayout.setOnClickListener(this);
-
         controllerLayout.setOnClickListener(this);
-
         networkLaytout.setOnClickListener(this);
+        dataLayout.setOnClickListener(this);
     }
 
     @Override
@@ -96,15 +102,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.network_layout:
                 setTabDisplay(1);
                 break;
-            case R.id.log_layout:
+            case R.id.none_file_fragment_text_view:
+            case R.id.data_layout:
                 setTabDisplay(2);
+                break;
+            case R.id.log_layout:
+                setTabDisplay(3);
                 break;
             default:
                 break;
         }
     }
 
-    private void setTabDisplay(int index){
+    protected void setTabDisplay(int index){
         clearSelection();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (index){
@@ -121,12 +131,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 transaction.replace(R.id.fragment_layout, networkFragment);
                 break;
             case 2:
+                dataImage.setImageResource(R.drawable.image_data_selected);
+                if(dataFragment == null)
+                    dataFragment = new DataFragment();
+                transaction.replace(R.id.fragment_layout, dataFragment);
+                break;
+            case 3:
                 logImage.setImageResource(R.drawable.image_log_selected);
                 if(logFragment == null)
                     logFragment = new LogFragment();
                 transaction.replace(R.id.fragment_layout, logFragment);
                 break;
-            case 3:
+            case 4:
+                dataImage.setImageResource(R.drawable.image_data_selected);
+                if (noneFileFragment == null)
+                    noneFileFragment = new NoneFileFragment();
+                Log.e(TAG, "setTabDisplay: 4 -------"+noneFileFragment.toString());
+                transaction.replace(R.id.fragment_layout, noneFileFragment);
                 break;
             default:
                 break;
@@ -138,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         controllerImage.setImageResource(R.drawable.image_controller_unselected);
         networkImage.setImageResource(R.drawable.image_network_unselected);
         logImage.setImageResource(R.drawable.image_log_unselected);
+        dataImage.setImageResource(R.drawable.image_data_unselected);
     }
 
 

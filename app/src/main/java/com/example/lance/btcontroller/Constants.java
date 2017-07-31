@@ -1,5 +1,7 @@
 package com.example.lance.btcontroller;
 
+import android.os.Environment;
+
 /**
  * Created by Lance on 2017/4/17.
  */
@@ -13,4 +15,6 @@ public class Constants {
     public static final int RECIEVE_STATE_SUCCESS = 1;
     public static final int RECIEVE_STATE_FAILED = 2;
     public static final int RECIEVE_STATE_CANCELED = 3;
+    public static final String DATA_DIRECTORY = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOWNLOADS).getPath().toString()+"/com.example.lance.btcontroller";
 }

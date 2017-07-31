@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 25
+    buildToolsVersion '26.0.1'
     defaultConfig {
         applicationId "com.example.lance.btcontroller"
         minSdkVersion 15
@@ -26,4 +26,5 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile files('libs/mpandroidchartlibrary-2-1-6.jar')
 }

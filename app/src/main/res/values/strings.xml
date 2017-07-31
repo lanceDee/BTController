@@ -16,7 +16,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">蓝牙控制器</string>
     <!--  MainActivity -->
-    
+
     <string name="menu_choose_item">选择设备</string>
     <string name="menu_connect_item">连接</string>
     <string name="menu_setting_item">网络信息配置</string>
@@ -67,7 +67,7 @@
         <item>125</item>
         <item>250</item>
     </string-array>
-    
+
     <!-- NetworkFragment -->
     <string name="title_server_setting">TCP服务器配置</string>
     <string name="text_checkbox">使用本机作为服务器</string>
@@ -83,6 +83,13 @@
     <string name="button_save_tcp">保存</string>
     <string name="button_start_get_data">开始获取数据</string>
     <string name="button_stop_get_data">停止获取数据</string>
+
     <!--LogFragment-->
     <string name="menu_clear_item">清除显示</string>
+
+    <!-- NoneFileFragment -->
+    <string name="none_file_text">暂无数据 点击刷新</string>
+
+    <!--DisplayChartActivity-->
+    <string name="menu_reset_item">复位图表</string>
 </resources>
