@@ -80,7 +80,13 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         if (!dir.exists())
             dir.mkdirs();
         File[] files = dir.listFiles();
+
         Collections.addAll(fileList, files);
+
+        for (File f : fileList)//不显示文件夹
+            if (f.isDirectory())
+                fileList.remove(f);
+
         if (fileList.isEmpty())
             ((MainActivity) getActivity()).setTabDisplay(4);
         else {

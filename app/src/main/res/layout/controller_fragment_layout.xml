@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:padding="6dp"
+    android:background="#DCDCDC">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,321 +13,357 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/controller_text_view_channel_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="通道配置"
-                android:textSize="18dp"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <CheckBox
-                    android:id="@+id/controller_checkbox_set_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:paddingRight="20dp"
-                    android:text="统一配置"/>
-            </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/info_for_checkbox"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:padding="10dp"
+                android:background="#fff">
                 <TextView
-                    android:id="@+id/controller_text_view_channel"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="通道"
-                    android:gravity="center"/>
+                    android:id="@+id/controller_text_view_channel_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="通道配置"
+                    android:textColor="#696969"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:id="@+id/controller_checkbox_set_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="20dp"
+                        android:text="统一配置"/>
+                </RelativeLayout>
                 <TextView
-                    android:id="@+id/controller_text_view_gain"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_for_checkbox"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="通道"
+                        android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/controller_text_view_gain"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="增益"
+                        />
+                    <TextView
+                        android:id="@+id/controller_text_view_sampling"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="采样率(SPS)"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="1"
+                        android:gravity="center"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <Spinner
+                            android:id="@+id/controller_spinner_gain1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_sampling1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="2"
+                        android:gravity="center"/>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_gain2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_sampling2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="3"
+                        android:gravity="center"/>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_gain3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_sampling3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="4"
+                        android:gravity="center"/>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_gain4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_sampling4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="5"
+                        android:gravity="center"/>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_gain5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_sampling5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/controller_text_view_channel6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="6"
+                        android:gravity="center"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_gain6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Spinner
+                            android:id="@+id/controller_spinner_sampling6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="#fff"
+               android:layout_marginTop="16dp"
+               android:padding="10dp">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="滤波"
+                   android:textColor="#696969"
+                   android:textSize="20dp"
+                   android:textStyle="bold"/>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp">
+
+                   <CheckBox
+                       android:id="@+id/controller_checkbox_filter"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="10dp"
+                       android:text="使能高通滤波"/>
+               </LinearLayout>
+           </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:layout_marginTop="16dp"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="增益"
-                    />
-                <TextView
-                    android:id="@+id/controller_text_view_sampling"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="采样率(SPS)"/>
+                    android:text="校准"
+                    android:textColor="#696969"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/controller_text_view_channel1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="1"
-                    android:gravity="center"/>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <Spinner
-                        android:id="@+id/controller_spinner_gain1"
+                    <CheckBox
+                        android:id="@+id/controller_checkbox_gain_carli"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_sampling1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Gain校准"/>
+                    <CheckBox
+                        android:id="@+id/controller_checkbox_offset_carli"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/controller_text_view_channel2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="2"
-                    android:gravity="center"/>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_gain2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_sampling2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/controller_text_view_channel3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="3"
-                    android:gravity="center"/>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_gain3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_sampling3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/controller_text_view_channel4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="4"
-                    android:gravity="center"/>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_gain4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_sampling4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/controller_text_view_channel5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="5"
-                    android:gravity="center"/>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_gain5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_sampling5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/controller_text_view_channel6"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="6"
-                    android:gravity="center"/>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_gain6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <Spinner
-                        android:id="@+id/controller_spinner_sampling6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"/>
-                </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Offset校准"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
+                android:background="#fff">
+                <Button
+                    android:id="@+id/controller_button_calibration"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="滤波"/>
-                <CheckBox
-                    android:id="@+id/controller_checkbox_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/button_start_carlibration"/>
+
+                <Button
+                    android:id="@+id/controller_button_aquisition"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="使能高通滤波"/>
+                    android:layout_weight="1"
+                    android:text="@string/button_start_aquisition"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="校准"/>
-                <CheckBox
-                    android:id="@+id/controller_checkbox_gain_carli"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Gain校准"/>
-                <CheckBox
-                    android:id="@+id/controller_checkbox_offset_carli"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Offset校准"/>
-            </LinearLayout>
-            <Button
-                android:id="@+id/controller_button_calibration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/button_start_carlibration"/>
-            <Button
-                android:id="@+id/controller_button_aquisition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/button_start_aquisition"/>
 
         </LinearLayout>
     </ScrollView>

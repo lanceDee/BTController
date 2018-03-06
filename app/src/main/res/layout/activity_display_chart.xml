@@ -1,13 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_display_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.lance.btcontroller.DisplayChartActivity">
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff" />
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="6dp">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <CheckBox
+                android:id="@+id/display_chart_check_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="通道1"/>
+            <CheckBox
+                android:id="@+id/display_chart_check_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="通道2"/>
+            <CheckBox
+                android:id="@+id/display_chart_check_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="通道3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/display_chart_check_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="通道4"/>
+
+            <CheckBox
+                android:id="@+id/display_chart_check_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="通道5"/>
+            <CheckBox
+                android:id="@+id/display_chart_check_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="通道6"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

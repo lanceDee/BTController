@@ -1,6 +1,7 @@
 package com.example.lance.btcontroller;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,6 +35,8 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
     private CheckBox checkOffsetCarli;
     private MainActivity mainActivity;
 
+    private ContentKeeper mContentKeeper;//仅供保存按钮文本
+
     private Spinner[] gainSpinners = new Spinner[6];
     private Spinner[] samplingSpinners = new Spinner[6];
 
@@ -49,6 +52,7 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
+        mContentKeeper = new ContentKeeper();
 
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(mainActivity,
                 R.array.channel_gain, android.R.layout.simple_spinner_item);
@@ -87,6 +91,31 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
 
         checkGainCarli.setChecked(true);
         checkOffsetCarli.setChecked(true);
+
+    }
+
+    @Override
+    public void onDetach() {
+//        SharedPreferences.Editor pre = mainActivity.getSharedPreferences("butState", 0).edit();
+//        pre.putString("butCaliText", butCalibration.getText().toString());
+//        pre.putString("butAquiText", butAquisition.getText().toString());
+//        pre.apply();
+
+        Log.e(TAG, "onDetach: ");
+        mContentKeeper.setButAquiText(butAquisition.getText().toString());
+        mContentKeeper.setButCarliText(butCalibration.getText().toString());
+        super.onDetach();
+    }
+
+    @Override
+    public void onResume() {
+//        SharedPreferences pre = mainActivity.getSharedPreferences("butState", 0);
+//        String butCaliText = pre.getString("butCaliText", "");
+//        String butAquiText = pre.getString("butAquiText", "");
+        Log.e(TAG, mContentKeeper.getButCarliText());
+        butCalibration.setText(mContentKeeper.getButCarliText());
+        butAquisition.setText(mContentKeeper.getButAquiText());
+        super.onResume();
     }
 
     @Override
@@ -152,20 +181,25 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
     }
 
     private void butStartCaliClicked() {
-        final View v = (RelativeLayout) mainActivity.getLayoutInflater().inflate(R.layout.choose_carli_rate_layout, null);
+        //MyView是自定义控件 继承自RelativeLayout
+        final MyView myView = new MyView(getContext());
 
         new AlertDialog.Builder(mainActivity)
         .setTitle("请选择校准频率")
-        .setView(v)
+        .setView(myView)
         .setNegativeButton("取消", null)
         .setPositiveButton("确定", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Spinner spinnerChooseRate = (Spinner) mainActivity.findViewById(R.id.controller_spinner_choose_rate);
-                int pos = spinnerChooseRate.getSelectedItemPosition();
+
                 mainActivity.displayToast("正在校准");
-                mainActivity.logAppend("->开始校准（使用频率："+spinnerChooseRate.getSelectedItem().toString()+"Hz)\n");
+                //使用自定义控件的自定义方法
+                mainActivity.logAppend("->开始校准（使用频率："+myView.getSelectedItem().toString()+"Hz)\n");
+                Log.e(TAG, "Item Position: "+myView.getSelectedItemPosition());
+
                // 发送开始校准命令
+
+
                 butCalibration.setText(R.string.button_stop_carlibration);
             }
         }).show();
