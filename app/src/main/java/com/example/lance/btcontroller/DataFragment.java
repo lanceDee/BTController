@@ -81,7 +81,9 @@ public class DataFragment extends Fragment implements View.OnClickListener {
             dir.mkdirs();
         File[] files = dir.listFiles();
 
-        Collections.addAll(fileList, files);
+        if (files != null)
+            Collections.addAll(fileList, files);
+        Log.e(TAG, Constants.DATA_DIRECTORY+":"+fileList.toString());
 
         for (File f : fileList)//不显示文件夹
             if (f.isDirectory())

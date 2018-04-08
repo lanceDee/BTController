@@ -355,15 +355,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/button_start_carlibration"/>
-
                 <Button
-                    android:id="@+id/controller_button_aquisition"
+                    android:id="@+id/controller_button_selfcheck"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/button_start_aquisition"/>
-            </LinearLayout>
+                    android:text="@string/button_start_selfcheck"/>
 
+            </LinearLayout>
+            <Button
+                android:id="@+id/controller_button_aquisition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button_start_aquisition"/>
 
         </LinearLayout>
     </ScrollView>

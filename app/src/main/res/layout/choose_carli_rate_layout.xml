@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_choose_rate"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center">
+    android:gravity="left"
+    android:orientation="vertical"
+    android:paddingLeft="20dp">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,5 +22,21 @@
             android:layout_height="wrap_content"
             android:entries="@array/choose_carli_rate"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自检幅度："/>
+        <Spinner
+            android:id="@+id/controller_spinner_choose_amplitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/choose_amplitude"/>
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

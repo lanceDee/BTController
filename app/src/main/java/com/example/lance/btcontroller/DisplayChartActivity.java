@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -59,21 +60,50 @@ public class DisplayChartActivity extends AppCompatActivity implements CompoundB
         file = new File(filename);
         chart = (LineChart) findViewById(R.id.line_chart);
 
-        ArrayList<Entry>[] lineList = new ArrayList[5];
+        ArrayList lineList = new ArrayList(6);
         ArrayList<Entry> entries = new ArrayList<Entry>();
         ArrayList<String> xVals = new ArrayList<String>();
-        byte[] buffer = new byte[1024];
+
+        //6通道数据容器初始化
+        for (int i = 0; i < 6; ++i)
+            lineList.add(new ArrayList<Entry>());
+
+        byte[] buffer = new byte[240];
         int len = 0;
         try {
             in = new FileInputStream(file);
-            while(true) {
+            int sum = 0;
+            int count = 2;
+            while(count-- != 0) {
                 len = in.read(buffer);
-                if (len == -1)
+                if (len == -1 || len < 240) {
                     break;
-                for (int i = 0; i < len; i++) {
-                    entries.add(new Entry(buffer[i], entries.size()));
-                    xVals.add("" + (entries.size()-1));
                 }
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 6; j++) {
+                        int start = i*6 + j*4;
+                        int data =   (buffer[start]&0xff)<<24
+                                    |(buffer[start+1]&0xff)<<16
+                                    |(buffer[start+2]&0xff)<<8
+                                    | buffer[start+3]&0xff;
+
+                        Log.e(TAG, "data Before: "+data);
+                        data = codeTransfer(data);
+                        Log.e(TAG, "data After: "+data);
+
+                        float data_f = ((float) data)/2147483648L*5;
+                        Log.e(TAG, "data Float: "+data_f);
+
+                        ((ArrayList<Entry>) lineList.get(j)).add(new Entry(data_f, sum+i));
+
+                    }
+
+                    xVals.add("" + (sum+i));
+
+                }
+
+                sum += 10;
+
             }
         }
         catch (IOException e) {
@@ -88,51 +118,26 @@ public class DisplayChartActivity extends AppCompatActivity implements CompoundB
             }
         }
 
-        LineDataSet lineDataSet = new LineDataSet(entries, "通道1");
-
-        /*************函数显示**************/
-
-        //初始化六条折线数据
-        for (byte i = 0; i < 5; i++)
-            lineList[i] = new ArrayList<Entry>();
-
-        for (byte i = 0; i < 32; i++){
-            double xval =  6.28*i/32;
-            lineList[0].add(new Entry((float) Math.sin(xval)*60, i));
-            lineList[1].add(new Entry((float) Math.cos(xval)*60, i));
-            lineList[2].add(new Entry((float) 120/32*i, i));
-            lineList[3].add(new Entry((float) (i*i*i)/100, i));
-            lineList[4].add(new Entry((float) Math.log10((i+1)*10), i));
-        }
-
-        //新建六个LineDataSet对象，并添加对应数据
-        LineDataSet sinDataSet = new LineDataSet(lineList[0], "sin");
-        LineDataSet cosDataSet = new LineDataSet(lineList[1], "cos");
-        LineDataSet tanDataSet = new LineDataSet(lineList[2], "tan");
-        LineDataSet scalbDataSet = new LineDataSet(lineList[3], "scalb");
-        LineDataSet log10DataSet = new LineDataSet(lineList[4], "log10");
+        //LineDataSet lineDataSet = new LineDataSet(entries, "通道1");
 
         //保存到列表
 
-        allLines.add(lineDataSet);
-        allLines.add(sinDataSet);
-        allLines.add(cosDataSet);
-        allLines.add(tanDataSet);
-        allLines.add(scalbDataSet);
-        allLines.add(log10DataSet);
+        for (int i = 0; i < 6; ++i)
+            allLines.add(new LineDataSet((ArrayList<Entry>) lineList.get(i), "通道"+(i+1)));
 
+//
         //为每个折线设置显示属性
         for (LineDataSet line : allLines) {
             line.setLineWidth(1.5f);
             line.setDrawCircles(false);
             line.setDrawValues(false);
         }
-        lineDataSet.setCircleColor(Color.BLUE);
-        sinDataSet.setColor(Color.RED);
-        cosDataSet.setColor(Color.GREEN);
-        tanDataSet.setColor(Color.YELLOW);
-        scalbDataSet.setColor(Color.BLACK);
-        log10DataSet.setColor(Color.GRAY);
+        allLines.get(0).setCircleColor(Color.BLUE);
+        allLines.get(1).setColor(Color.RED);
+        allLines.get(2).setColor(Color.GREEN);
+        allLines.get(3).setColor(Color.YELLOW);
+        allLines.get(4).setColor(Color.BLACK);
+        allLines.get(5).setColor(Color.GRAY);
 
         //最终生成LineData
         LineData lineData = new LineData(xVals, allLines);
@@ -145,6 +150,14 @@ public class DisplayChartActivity extends AppCompatActivity implements CompoundB
         chart.setDescription(file.getName().toString()+"预览");
         chart.animateY(1000);
         /********************end of 函数显示*********************/
+
+
+    }
+
+    private int codeTransfer(int data) {
+        if ((data & 0x80000000) != 0)
+            data = (~(data&0x7fffffff)+1) | 0x80000000;
+        return data;
     }
 
     @Override

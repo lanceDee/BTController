@@ -15,11 +15,18 @@ public class MyView extends RelativeLayout{
         LayoutInflater.from(context).inflate(R.layout.choose_carli_rate_layout, this);
     }
 
-    public Object getSelectedItem(){
+    public Object getSelectedRate(){
         return ((Spinner) findViewById(R.id.controller_spinner_choose_rate)).getSelectedItem();
     }
 
-    public int getSelectedItemPosition(){
+    public int getSelectedRatePosition(){
         return ((Spinner) findViewById(R.id.controller_spinner_choose_rate)).getSelectedItemPosition();
+    }
+    public Object getSelectedAmplitude(){
+        return ((Spinner) findViewById(R.id.controller_spinner_choose_amplitude)).getSelectedItem();
+    }
+
+    public int getSelectedAmplitudePosition(){
+        return ((Spinner) findViewById(R.id.controller_spinner_choose_amplitude)).getSelectedItemPosition();
     }
 }
