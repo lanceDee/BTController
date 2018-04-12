@@ -1,5 +1,6 @@
 package com.example.lance.btcontroller;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -27,6 +28,7 @@ import android.widget.Spinner;
 public class ControllerFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener,
         AdapterView.OnItemSelectedListener{
 
+    private Button butUpdateConfig;
     private Button butCarlibration;
     private Button butAquisition;
     private Button butSelfCheck;
@@ -78,9 +80,11 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
         }
         samplingSpinners[0].setOnItemSelectedListener(this);
 
+        butUpdateConfig = (Button) mainActivity.findViewById(R.id.controller_button_config);
         butCarlibration = (Button) mainActivity.findViewById(R.id.controller_button_calibration);
         butSelfCheck = (Button) mainActivity.findViewById(R.id.controller_button_selfcheck);
         butAquisition = (Button) mainActivity.findViewById(R.id.controller_button_aquisition);
+        butUpdateConfig.setOnClickListener(this);
         butAquisition.setOnClickListener(this);
         butSelfCheck.setOnClickListener(this);
         butCarlibration.setOnClickListener(this);
@@ -92,6 +96,7 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
 
         checkSetAll.setOnCheckedChangeListener(this);
 
+        checkFilter.setChecked(true);
         checkGainCarli.setChecked(true);
         checkOffsetCarli.setChecked(true);
 
@@ -99,37 +104,42 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onDetach() {
-//        SharedPreferences.Editor pre = mainActivity.getSharedPreferences("butState", 0).edit();
-//        pre.putString("butCaliText", butCarlibration.getText().toString());
-//        pre.putString("butAquiText", butAquisition.getText().toString());
-//        pre.apply();
+        SharedPreferences.Editor pre = mainActivity.getSharedPreferences("butState", 0).edit();
+        pre.putString("butCaliText", butCarlibration.getText().toString());
+        pre.putString("butCheckText", butSelfCheck.getText().toString());
+        pre.putString("butAquiText", butAquisition.getText().toString());
+        pre.apply();
 
-        Log.e(TAG, "onDetach: ");
-        mContentKeeper.setButAquiText(butAquisition.getText().toString());
-        mContentKeeper.setButCarliText(butCarlibration.getText().toString());
+
         super.onDetach();
     }
 
     @Override
     public void onResume() {
-//        SharedPreferences pre = mainActivity.getSharedPreferences("butState", 0);
-//        String butCaliText = pre.getString("butCaliText", "");
-//        String butAquiText = pre.getString("butAquiText", "");
-        Log.e(TAG, mContentKeeper.getButCarliText());
-        butCarlibration.setText(mContentKeeper.getButCarliText());
-        butAquisition.setText(mContentKeeper.getButAquiText());
+        SharedPreferences pre = mainActivity.getSharedPreferences("butState", 0);
+        String butCaliText = pre.getString("butCaliText", "开始校准");
+        String butCheckText = pre.getString("butCheckText", "开始自检");
+        String butAquiText = pre.getString("butAquiText", "开始采集");
+
+        butCarlibration.setText(butCaliText);
+        butSelfCheck.setText(butCheckText);
+        butAquisition.setText(butAquiText);
+
         super.onResume();
     }
 
     @Override
     public void onClick(View v){
+        if (mainActivity.getBluetoothState() != BluetoothChatService.STATE_CONNECTED){
+            mainActivity.displayToast("蓝牙未连接");
+            return;
+        }
         switch(v.getId()){
+            case R.id.controller_button_config:
+                butUpdateConfigClicked();
+                break;
             case R.id.controller_button_calibration:
-                if (butCarlibration.getText().toString().equals(mainActivity.getString(R.string.button_start_carlibration)))
-                    butStartCarliClicked();
-                else 
-                    butStopCarliClicked();
-
+                butStartCarliClicked();
                 break;
             case R.id.controller_button_selfcheck:
                 if (butSelfCheck.getText().toString().equals(mainActivity.getString(R.string.button_start_selfcheck)))
@@ -139,20 +149,42 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.controller_button_aquisition:
                 if (butAquisition.getText().toString()
-                        .equals(mainActivity.getString(R.string.button_start_aquisition)))
+                        .equals(mainActivity.getString(R.string.button_start_aquisition))) {
                     mainActivity.sendCommand(Constants.CMD_SAVE_DATA);
+                    butAquisition.setText(R.string.button_stop_aquisition);
+                }
+                else {
+                    mainActivity.sendCommand(Constants.CMD_STOP);
+                    butAquisition.setText(R.string.button_start_aquisition);
+                }
+
                 break;
             default:
                 break;
         }
     }
 
+    private void butUpdateConfigClicked() {
+        int sps = samplingSpinners[0].getSelectedItemPosition();
+        int gain = gainSpinners[0].getSelectedItemPosition();
+        int hpf = checkFilter.isChecked() ? 1 : 0;
+        mainActivity.sendCommand("config/"+sps+"/"+hpf+"/"+gain+"\r\n");
+        String log = "已更新配置信息：\n\t采样率:"
+                +samplingSpinners[0].getSelectedItem().toString()+"\n\t增益："
+                +gainSpinners[0].getSelectedItem().toString()+"\n\t是否使能高通滤波：";
+        if (checkFilter.isChecked())
+            log += "是\n";
+        else
+            log += "否\n";
+        mainActivity.logAppend(log);
+        mainActivity.displayToast("配置命令已发送");
+    }
+
     private void butStartCarliClicked() {
 
         int gain = checkGainCarli.isChecked() ? 1 : 0;
         int offset = checkOffsetCarli.isChecked() ? 1 : 0;
-        int flag = (gain << 1) | offset;
-        mainActivity.sendCommand("carli/"+flag+"\r\n");
+        mainActivity.sendCommand("carli/"+gain+"/"+offset+"\r\n");
         mainActivity.displayToast("正在校准");
         String log = "->正在校准";
         if (gain == 1)
@@ -161,14 +193,9 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
             log += ",Offset校准使能";
         log += "\n";
         mainActivity.logAppend(log);
-        butCarlibration.setText(R.string.button_stop_carlibration);
+
     }
     
-    private void butStopCarliClicked() {
-        mainActivity.logAppend("->停止校准\n");
-        butCarlibration.setText(R.string.button_start_carlibration);
-    }
-
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -210,8 +237,10 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
     }
 
     private void butStartSelfCheckClicked() {
+
         //MyView是自定义控件 继承自RelativeLayout
         final MyView myView = new MyView(getContext());
+        myView.setSelectedRate(1);//默认选择31.25Hz
 
         new AlertDialog.Builder(mainActivity)
         .setTitle("请选择自检频率和幅度")
@@ -221,27 +250,22 @@ public class ControllerFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                mainActivity.displayToast("正在自检");
                 //使用自定义控件的自定义方法
                 int selfCheckRate = myView.getSelectedRatePosition();
                 int selfCheckAmplitude = myView.getSelectedAmplitudePosition();
 
                 mainActivity.sendCommand("check/"+selfCheckRate+"/"+selfCheckAmplitude+"\r\n");
 
+                mainActivity.displayToast("正在自检");
                 mainActivity.logAppend("->开始自检（使用频率："+myView.getSelectedRate().toString()+"Hz"
                     +" 幅度： "+myView.getSelectedAmplitude().toString()+")\n");
-                //Log.e(TAG, "Item Position: "+myView.getSelectedItemPosition());
-
-               // 发送开始校准命令
-
-
                 butSelfCheck.setText(R.string.button_stop_selfcheck);
             }
         }).show();
     }
 
     private void butStopSelfCheckClicked(){
-        //mainActivity.sendCommand(Constants.CMD_STOP_SELFCHECK);
+        mainActivity.sendCommand(Constants.CMD_STOP_SELFCHECK);
         mainActivity.displayToast("自检已停止");
         mainActivity.logAppend("->停止自检\n");
         butSelfCheck.setText(R.string.button_start_selfcheck);

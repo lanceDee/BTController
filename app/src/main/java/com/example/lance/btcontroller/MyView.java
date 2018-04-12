@@ -29,4 +29,11 @@ public class MyView extends RelativeLayout{
     public int getSelectedAmplitudePosition(){
         return ((Spinner) findViewById(R.id.controller_spinner_choose_amplitude)).getSelectedItemPosition();
     }
+
+    public void setSelectedRate(int pos){
+        ((Spinner) findViewById(R.id.controller_spinner_choose_rate)).setSelection(pos, true);
+    }
+    public void setSelectedAmplitude(int pos){
+        ((Spinner) findViewById(R.id.controller_spinner_choose_amplitude)).setSelection(pos, true);
+    }
 }

@@ -28,6 +28,7 @@
                     android:textColor="#696969"
                     android:textSize="20dp"
                     android:textStyle="bold"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -279,7 +280,20 @@
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"/>
                     </RelativeLayout>
+
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right">
+                    <Button
+                        android:id="@+id/controller_button_config"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/button_update_config"/>
+                </LinearLayout>
+
             </LinearLayout>
 
            <LinearLayout

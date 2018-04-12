@@ -73,26 +73,24 @@ public class DisplayChartActivity extends AppCompatActivity implements CompoundB
         try {
             in = new FileInputStream(file);
             int sum = 0;
-            int count = 2;
-            while(count-- != 0) {
+            int count = 20;
+            while(true) {
                 len = in.read(buffer);
                 if (len == -1 || len < 240) {
                     break;
                 }
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 6; j++) {
-                        int start = i*6 + j*4;
+                        int start = i*24 + j*4;
                         int data =   (buffer[start]&0xff)<<24
                                     |(buffer[start+1]&0xff)<<16
                                     |(buffer[start+2]&0xff)<<8
                                     | buffer[start+3]&0xff;
-
-                        Log.e(TAG, "data Before: "+data);
-                        data = codeTransfer(data);
-                        Log.e(TAG, "data After: "+data);
+                        //if (j == 4)
+                            Log.e(TAG, "data Before: "+data);
 
                         float data_f = ((float) data)/2147483648L*5;
-                        Log.e(TAG, "data Float: "+data_f);
+                        //Log.e(TAG, "data Float: "+data_f);
 
                         ((ArrayList<Entry>) lineList.get(j)).add(new Entry(data_f, sum+i));
 
@@ -103,6 +101,7 @@ public class DisplayChartActivity extends AppCompatActivity implements CompoundB
                 }
 
                 sum += 10;
+
 
             }
         }
@@ -154,11 +153,11 @@ public class DisplayChartActivity extends AppCompatActivity implements CompoundB
 
     }
 
-    private int codeTransfer(int data) {
-        if ((data & 0x80000000) != 0)
-            data = (~(data&0x7fffffff)+1) | 0x80000000;
-        return data;
-    }
+//    private int codeTransfer(int data) {
+//        if ((data & 0x80000000) != 0)
+//            data = (~(data&0x7fffffff)+1) | 0x80000000;
+//        return data;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

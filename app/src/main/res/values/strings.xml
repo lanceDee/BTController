@@ -31,6 +31,7 @@
 
     <!--ControllerFragment-->
     <string name="info_for_checkbox">\t勾选“统一配置”后只能修改通道1的配置，其它通道将复制通道一的配置。</string>
+    <string name="button_update_config">更新配置</string>
     <string name="button_start_carlibration">开始校准</string>
     <string name="button_stop_carlibration">停止校准</string>
     <string name="button_start_selfcheck">开始自检</string>
@@ -53,28 +54,15 @@
         <item>2000</item>
         <item>4000</item>
     </string-array>
-    <string-array name="choose_carli_rate">
+    <string-array name="choose_check_rate">
         <item>0.48828125</item>
-        <item>0.9765625</item>
-        <item>1.953125</item>
-        <item>3.90625</item>
-        <item>7.8125</item>
-        <item>15.625</item>
         <item>31.25</item>
-        <item>50</item>
-        <item>55</item>
-        <item>60</item>
-        <item>62.5</item>
-        <item>100</item>
-        <item>125</item>
         <item>250</item>
     </string-array>
     <string-array name="choose_amplitude">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item>满偏</item>
+        <item>中等</item>
+        <item>最低</item>
     </string-array>
 
     <!-- NetworkFragment -->
